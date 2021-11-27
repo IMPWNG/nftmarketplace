@@ -1,4 +1,5 @@
 require("@nomiclabs/hardhat-waffle");
+const fs = require("fs")
 
 const projetId = "99fe2671319547ea9845d350d9e93c7a";
 
