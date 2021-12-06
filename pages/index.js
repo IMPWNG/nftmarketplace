@@ -20,7 +20,7 @@ export default function Home() {
 
   async function loadNfts() {
     // call revert exception (method="fetchMarketItems()", errorArgs=null, errorName=null, errorSignature=null, reason=null, code=CALL_EXCEPTION, version=abi/5.5.0)
-    const provider = new ethers.providers.Web3Provider(web3.currentProvider)
+    const provider = new ethers.providers.JsonRpcProvider()
     const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider)
     const marketContract = new ethers.Contract(nftmarketaddress, NFTMarket.abi, provider)
     const data = await marketContract.fetchMarketItems()
