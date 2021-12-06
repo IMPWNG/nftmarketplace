@@ -19,7 +19,8 @@ export default function Home() {
   }, [])
 
   async function loadNfts() {
-    const provider = new ethers.providers.JsonRpcProvider("https://matic-mumbai.chainstacklabs.com:3000") 
+    // Update RPC Provider 
+    const provider = new ethers.providers.JsonRpcProvider("https://matic-mumbai.chainstacklabs.com:80001") 
     const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider)
     const marketContract = new ethers.Contract(nftmarketaddress, NFTMarket.abi, provider)
     const data = await marketContract.fetchMarketItems()
