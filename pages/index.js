@@ -8,6 +8,8 @@ import { nftaddress, nftmarketaddress } from '../config';
 import NFT from '../artifacts/contracts/NFT.sol/NFT.json';
 import NFTMarket from '../artifacts/contracts/NFTMarket.sol/NFTMarket.json';
 
+
+
 export default function Home() {
   const [nfts, setNfts] = useState([])
   const [loadingState, setLoadingState] = useState('not-loaded')
@@ -17,7 +19,8 @@ export default function Home() {
   }, [])
 
   async function loadNfts() {
-    const provider = new ethers.providers.JsonRpcProvider("https://matic-mumbai.chainstacklabs.com:3000")
+    // call revert exception (method="fetchMarketItems()", errorArgs=null, errorName=null, errorSignature=null, reason=null, code=CALL_EXCEPTION, version=abi/5.5.0)
+    const provider = new ethers.providers.Web3Provider(web3.currentProvider)
     const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider)
     const marketContract = new ethers.Contract(nftmarketaddress, NFTMarket.abi, provider)
     const data = await marketContract.fetchMarketItems()
@@ -44,7 +47,7 @@ export default function Home() {
   async function buyNfts() {
     const web3Modal = new Web3Modal()
     const connection = await web3Modal.connect()
-    const provider = new ethers.providers.JsonRpcProvider(connection)
+    const provider = new ethers.providers.Web3Provider(connection)
 
     const signer = provider.getSigner()
     const contract = new ethers.Contract(nftmarketaddress, NFTMarket.abi, signer)
