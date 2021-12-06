@@ -17,7 +17,7 @@ export default function Home() {
   }, [])
 
   async function loadNfts() {
-    const provider = new ethers.providers.Web3Provider(web3.currentProvider)
+    const provider = new ethers.providers.JsonRpcProvider("https://matic-mumbai.chainstacklabs.com:3000")
     const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider)
     const marketContract = new ethers.Contract(nftmarketaddress, NFTMarket.abi, provider)
     const data = await marketContract.fetchMarketItems()
@@ -44,7 +44,7 @@ export default function Home() {
   async function buyNfts() {
     const web3Modal = new Web3Modal()
     const connection = await web3Modal.connect()
-    const provider = new ethers.providers.Web3Provider(connection)
+    const provider = new ethers.providers.JsonRpcProvider(connection)
 
     const signer = provider.getSigner()
     const contract = new ethers.Contract(nftmarketaddress, NFTMarket.abi, signer)
