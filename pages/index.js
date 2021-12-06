@@ -1,4 +1,4 @@
-import { ethers, providers } from "ethers";
+import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Web3Modal from "web3modal";
@@ -7,8 +7,6 @@ import { nftaddress, nftmarketaddress } from '../config';
 
 import NFT from '../artifacts/contracts/NFT.sol/NFT.json';
 import NFTMarket from '../artifacts/contracts/NFTMarket.sol/NFTMarket.json';
-
-
 
 export default function Home() {
   const [nfts, setNfts] = useState([])
@@ -25,13 +23,13 @@ export default function Home() {
     const marketContract = new ethers.Contract(nftmarketaddress, NFTMarket.abi, provider)
     const data = await marketContract.fetchMarketItems()
 
-    const items = await Promise.all(data.map(async i => {
+  const items = await Promise.all(data.map(async i => {
       const tokenUri = await tokenContract.tokenURI(i.tokenId)
       const meta = await axios.get(tokenUri)
       let price = ethers.utils.formatUnits(i.price.toString(), 'ether')
       let item = {
         price,
-        tokenId: i.tokenId.toNumber(),
+        itemId: i.itemId.toNumber(),
         seller: i.seller,
         owner: i.owner,
         image: meta.data.image,
@@ -44,7 +42,7 @@ export default function Home() {
     setLoadingState('loaded')
   }
 
-  async function buyNfts() {
+async function buyNft(nft) {
     const web3Modal = new Web3Modal()
     const connection = await web3Modal.connect()
     const provider = new ethers.providers.Web3Provider(connection)
@@ -52,7 +50,7 @@ export default function Home() {
     const contract = new ethers.Contract(nftmarketaddress, NFTMarket.abi, signer)
 
     const price = ethers.utils.parseUnits(nft.price.toString(), 'ether')
-    const transaction = await contract.createMarketSale(nftaddress, nft.ItemId, {
+    const transaction = await contract.createMarketSale(nftaddress, nft.itemId, {
       value: price
     })
     await transaction.wait()
@@ -78,8 +76,8 @@ export default function Home() {
                       </div>
                   </div>
                   <div className="p-4 bg-black">
-                    <p className="text-2xl mb-4 font-bold text-white">{nft.price} Matic</p>
-                    <button className="w-full bg-pink-500 text-white font-bold py-2 px-12 rounded" onClick={() => buyNfts(nft)}>Buy</button>
+                    <p className="text-2xl mb-4 font-bold text-white">{nft.price} Eth</p>
+                    <button className="w-full bg-pink-500 text-white font-bold py-2 px-12 rounded" onClick={() => buyNft(nft)}>Buy</button>
                   </div>
                 </div>
               )) 
