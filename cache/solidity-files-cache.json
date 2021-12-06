@@ -2,7 +2,7 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/ma/Desktop/React/nftmarketplace/contracts/NFT.sol": {
-      "lastModificationDate": 1638289662455,
+      "lastModificationDate": 1638806103993,
       "contentHash": "65b0c1f3d752f39183a3aeebc63c733a",
       "sourceName": "contracts/NFT.sol",
       "solcConfig": {
@@ -442,7 +442,7 @@
       ]
     },
     "/Users/ma/Desktop/React/nftmarketplace/contracts/NFTMarket.sol": {
-      "lastModificationDate": 1638290576784,
+      "lastModificationDate": 1638806100714,
       "contentHash": "ec41e22e4f8eaa42c148a5fd4694f228",
       "sourceName": "contracts/NFTMarket.sol",
       "solcConfig": {
