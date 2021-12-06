@@ -18,7 +18,7 @@ export default function Home() {
 
   async function loadNfts() {
     // Update RPC Provider with web# + create localhost RPC on metamask
-    const provider = new ethers.providers.Web3Provider(web3.currentProvider)
+    const provider = new ethers.providers.JsonRpcProvider("https://matic-mumbai.chainstacklabs.com")
     const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider)
     const marketContract = new ethers.Contract(nftmarketaddress, NFTMarket.abi, provider)
     const data = await marketContract.fetchMarketItems()
@@ -56,11 +56,7 @@ async function buyNft(nft) {
     await transaction.wait()
     loadNfts()
   }
-
-  if (loadingState === 'loaded && !nfts.length') return (
-    <h1 className="px-20 py-10 text-3xl">No items in marketplace</h1>
-  )
-
+  if (loadingState === 'loaded' && !nfts.length) return (<h1 className="py-10 px-20 text-3xl">No items in marketplace</h1>)
   return (
     <div className="flex justify-center">
       <div className="px-4" style={{ maxWidth: '1600px'}}>
