@@ -9,3 +9,8 @@ Configure network and account
 test - done
 
 change DNs to IPv6 to match with my node version 
+
+
+## 08/12
+
+For localhost test delete metamask logs
