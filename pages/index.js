@@ -1,13 +1,23 @@
 import Layout from "../src/components/Layout";
+import { useMoralis } from "react-moralis";
+import { Button } from '@chakra-ui/button';
+import React from "react";
 
 export default function Home() {
-  return (
-    <Layout>
-      <div>
-        <h1 className="flex justify-center text-blue-700 lg:text-3xl border-blue-600 border-b-2	text-bold">
-          Welcome to the IMP NFT MARKETPLACE
-        </h1>
-      </div>
-    </Layout>
-  );
-}
+  const { authenticate, isAuthenticated, isAuthentificating, logout } = useMoralis();
+
+  if (isAuthenticated) {
+    return (
+      <Layout>
+        <h1 className="flex justify-center text-blue-700 lg:text-3xl border-blue-600 border-b-2	text-bold">Welcome to the IMP NFT MARKETPLACE</h1>
+        <Button isLoading={isAuthentificating} onClick={logout} className="justify-center bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded">Logout</Button>
+      </Layout>
+    ); 
+  }
+    return (
+        <div>
+              <Button isLoading={isAuthentificating} onClick={() => authenticate()} className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">Sign in with MetaMask</Button>
+        </div>
+
+    );
+}  
