@@ -1,3 +1,7 @@
 module.exports = {
+  en: {
+    MORALIS_NFTMARKETPLACE_APP_ID: process.env.MORALIS_NFTMARKETPLACE_APP_ID,
+    MORALIS_NFTMARKETPLACE_SERVER_URL: process.env.MORALIS_NFTMARKETPLACE_SERVER_URL
+  },
   reactStrictMode: true,
 }
