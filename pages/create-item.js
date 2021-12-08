@@ -4,6 +4,8 @@ import { create as ipfsHttpClient } from 'ipfs-http-client';
 import { useRouter } from 'next/router';
 import Web3Modal from "web3modal";
 
+import Layout from "../src/components/Layout";
+
 const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0')
 
 import { nftaddress, nftmarketaddress } from '../config';
@@ -77,6 +79,7 @@ export default function CreateItem() {
     }
 
     return (
+        <Layout>
         <div className="flex justify-center">
             <div className="w-1/2 flex flex-col pb-12">
                 <input
@@ -110,5 +113,6 @@ export default function CreateItem() {
                 </button>
             </div>
         </div>
+        </Layout>
     )
 }

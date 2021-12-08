@@ -1,5 +1,13 @@
-          <nav className="border-b p-6">
-            <p className="text-4xl font-bold">NFT Marketplace</p>
+import { useState } from "react";
+import Link from 'next/link';
+              
+const Navbar = () => {
+  const [showNav, setShowNav] = useState(false);
+
+  return (
+      <div>
+    <nav className="border-b p-6">
+       <p className="text-4xl font-bold">NFT Marketplace</p>
             <div className="flex mt-4">
               <Link href="/">
                 <a className="mr-4 text-pink-500">
@@ -23,3 +31,11 @@
               </Link>
             </div>
           </nav>
+  </div>
+  );
+
+
+}         
+export default Navbar;
+         
+         
