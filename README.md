@@ -13,4 +13,5 @@ change DNs to IPv6 to match with my node version
 
 ## 08/12
 
-For localhost test delete metamask logs
+- For localhost test delete metamask logs
+- Moralis installation 
