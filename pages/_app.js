@@ -4,9 +4,7 @@ import Link from 'next/link';
 import { MoralisProvider } from "react-moralis";
 
 function MyApp({ Component, pageProps }) {
-  if (!process.env.MORALIS_NFTMARKETPLACE_APP_ID || !process.env.MORALIS_NFTMARKETPLACE_SERVER_URL) {
     return (
-      <MoralisProvider appId={process.env.MORALIS_NFTMARKETPLACE_APP_ID|| ""} serverUrl={process.env.MORALIS_NFTMARKETPLACE_SERVER_URL|| ""}>
         <div>
           <nav className="border-b p-6">
             <p className="text-4xl font-bold">NFT Marketplace</p>
@@ -35,8 +33,6 @@ function MyApp({ Component, pageProps }) {
           </nav>
             <Component {...pageProps} />
         </div>
-      </MoralisProvider>
     );
   }
-}
 export default MyApp
