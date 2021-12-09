@@ -3,6 +3,8 @@ import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Web3Modal from "web3modal";
+import { useMoralis } from "react-moralis";
+import { Button } from '@chakra-ui/button';
 
 import { nftaddress, nftmarketaddress } from '../config';
 
@@ -10,8 +12,10 @@ import NFT from '../artifacts/contracts/NFT.sol/NFT.json';
 import NFTMarket from '../artifacts/contracts/NFTMarket.sol/NFTMarket.json';
 
 export default function Home() {
+
   const [nfts, setNfts] = useState([])
   const [loadingState, setLoadingState] = useState('not-loaded')
+ 
 
   useEffect(() => {
     loadNfts()
@@ -85,6 +89,12 @@ async function buyNft(nft) {
                 </div>
             </div>
             </Layout>
+
     </>
-  )
+
+      
+  );
+
+    
+      
 }
