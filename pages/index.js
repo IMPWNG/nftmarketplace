@@ -10,7 +10,6 @@ export default function Home() {
     return (
       <Layout>
         <h1 className="flex justify-center text-blue-700 lg:text-3xl border-blue-600 border-b-2	text-bold">Welcome to the IMP NFT MARKETPLACE</h1>
-        <Button isLoading={isAuthentificating} onClick={logout} className="justify-center bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded">Logout</Button>
       </Layout>
     ); 
   }

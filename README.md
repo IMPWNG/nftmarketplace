@@ -1,5 +1,7 @@
 # Basic Sample Hardhat Project
 
+npx hardhat node is your metamask have an issue to start
+
 ## 26/11
 
 Configure network and account 

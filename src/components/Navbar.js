@@ -1,6 +1,8 @@
-import { Fragment } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import { Fragment } from 'react';
+import { Disclosure, Menu, Transition } from '@headlessui/react';
+import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
+import { useMoralis } from "react-moralis";
+import { Button } from '@chakra-ui/button';
               
 const navigation = [
   { name: 'Home', href: '/', current: true },
@@ -15,6 +17,7 @@ function classNames(...classes) {
 }
 
 export default function Navbar() {
+  const { authenticate, isAuthenticated, isAuthentificating, logout } = useMoralis();
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -116,12 +119,12 @@ export default function Navbar() {
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a
+                          <Button isLoading={isAuthentificating} onClick={logout}
                             href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-red-500')}
                           >
                             Sign out
-                          </a>
+                          </Button>
                         )}
                       </Menu.Item>
                     </Menu.Items>
