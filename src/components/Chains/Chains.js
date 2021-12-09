@@ -129,8 +129,8 @@ export default function Chains() {
   const { switchNetwork, chainId, chain } = useChain();
   const { authenticate, isAuthenticated, isAuthentificating, logout, account } = useMoralis();
   const [selected, setSelected] = useState({});
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [isShowing, setIsShowing] = useState(false)
+  const [isModalVisible, setIsModalVisible] = useState(true);
+  const [isShowing, setIsShowing] = useState(true)
 
 
   console.log("chain", chain)
@@ -147,30 +147,32 @@ export default function Chains() {
     switchNetwork(e.key);
   };
 
+  //devrais pas avoir de menu car menu deja actif plus bas
   const menu = (
-    <Menu onClick={handleMenuClick}>
+    <Menu onClick={setIsModalVisible}>
       {menuItems.map((item) => (
-        <Menu.Item key={item.key} icon={item.icon} style={styles.item}>
+        <p key={item.key} icon={item.icon}>
           <span style={{ marginLeft: "5px" }}>{item.value}</span>
-        </Menu.Item>
+        </p>
       ))}
     </Menu>
   );
+
+
 
   return (
     <>
         <div>
           <Menu as="div" className="ml-3 relative">
             <div>
-              <Menu.Button key={selected?.key} icon={selected?.icon} onClick={() => setIsModalVisible(true)} className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+              <Menu.Button key={selected?.key} icon={selected?.icon} onClick={() => setIsModalVisible()} className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                 <span className="sr-only">Open Networks selector</span>
-                    <p style={{ marginLeft: "5px" }}>{selected?.value}</p>
+                    <p style={{ marginLeft: "5px" }}>{selected?.value} </p>
                       <ChevronDownIcon className="w-5 h-5 ml-2 -mr-1 text-violet-200 hover:text-violet-100" aria-hidden="true" />
               </Menu.Button>
             </div>
         <Transition
-          as={Fragment}
-          trigger={["click"]}
+        
           enter="transition ease-out duration-100"
           enterFrom="transform opacity-0 scale-95"
           enterTo="transform opacity-100 scale-100"
