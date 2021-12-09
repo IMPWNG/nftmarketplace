@@ -1,7 +1,6 @@
 import React from 'react'
 import { MoralisProvider } from "react-moralis";
 
-
 import '../styles/globals.css';
 
 // Change to use .env

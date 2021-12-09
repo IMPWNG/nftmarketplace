@@ -44,7 +44,7 @@ export default function Account() {
                   <Blockie className="h-8 w-8 rounded-full" currentWallet scale={3} /> 
                     <p style={{ marginRight: "1px", ...styles.text }}>{getEllipsisTxt(account, 6)}</p>
               </Menu.Button>
-        </div>
+            </div>
         <Transition
           as={Fragment}
           enter="transition ease-out duration-100"
