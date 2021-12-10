@@ -1,33 +1,11 @@
-import { Fragment, useEffect, useRef, useState } from "react";
-import { DownOutlined } from "@ant-design/icons";
-import { AvaxLogo, PolygonLogo, BSCLogo, ETHLogo } from "./Logos";
-import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { getEllipsisTxt } from "../../helpers/formatters";
+import { Fragment, useEffect, useState } from "react";
 import { useMoralis } from "react-moralis";
-import { getExplorer } from "../../helpers/networks";
 import { useChain } from "react-moralis";
-import { SelectOutlined } from "@ant-design/icons";
-import { Button } from "antd";
-import { ChevronDownIcon } from '@heroicons/react/solid'
+import { CheckIcon, SelectorIcon } from '@heroicons/react/solid';
+import { Listbox, Transition } from '@headlessui/react'
+import { AvaxLogo, PolygonLogo, BSCLogo, ETHLogo } from "./Logos";
 
-
-const styles = {
-  item: {
-    display: "flex",
-    alignItems: "center",
-    height: "42px",
-    fontWeight: "500",
-    fontFamily: "Roboto, sans-serif",
-    fontSize: "14px",
-    padding: "0 10px",
-  },
-  button: {
-    border: "2px solid rgb(231, 234, 243)",
-    borderRadius: "12px",
-  },
-};
-
-const menuItems = [
+const networks = [
   {
     key: "0x1",
     value: "Ethereum",
@@ -84,61 +62,16 @@ const menuItems = [
     icon: <AvaxLogo />,
   },
 ];
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
-
-function EditActiveIcon(props) {
-  return (
-    <svg
-      {...props}
-      viewBox="0 0 20 20"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M4 13V16H7L16 7L13 4L4 13Z"
-        fill="#8B5CF6"
-        stroke="#C4B5FD"
-        strokeWidth="2"
-      />
-    </svg>
-  )
-}
-
-function EditInactiveIcon(props) {
-  return (
-    <svg
-      {...props}
-      viewBox="0 0 20 20"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M4 13V16H7L16 7L13 4L4 13Z"
-        fill="#EDE9FE"
-        stroke="#A78BFA"
-        strokeWidth="2"
-      />
-    </svg>
-  )
-}
-
 export default function Chains() {
   const { switchNetwork, chainId, chain } = useChain();
-  const { authenticate, isAuthenticated, isAuthentificating, logout, account } = useMoralis();
-  const [selected, setSelected] = useState({});
-  const [isModalVisible, setIsModalVisible] = useState(true);
-  const [isShowing, setIsShowing] = useState(true)
-
+  const [selectedNetwork, setSelectedNetwork] = useState(networks[0]);
 
   console.log("chain", chain)
 
   useEffect(() => {
     if (!chainId) return null;
-    const newSelected = menuItems.find((item) => item.key === chainId);
-    setSelected(newSelected);
+    const newSelected = networks.find((item) => item.key === chainId);
+    setSelectedNetwork(newSelected);
     console.log("current chainId: ", chainId);
   }, [chainId]);
 
@@ -147,51 +80,67 @@ export default function Chains() {
     switchNetwork(e.key);
   };
 
-  //devrais pas avoir de menu car menu deja actif plus bas
-  const menu = (
-    <Menu onClick={setIsModalVisible}>
-      {menuItems.map((item) => (
-        <p key={item.key} icon={item.icon}>
-          <span style={{ marginLeft: "5px" }}>{item.value}</span>
-        </p>
-      ))}
-    </Menu>
-  );
-
-
-
   return (
-    <>
-        <div>
-          <Menu as="div" className="ml-3 relative">
-            <div>
-              <Menu.Button key={selected?.key} icon={selected?.icon} onClick={() => setIsModalVisible()} className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                <span className="sr-only">Open Networks selector</span>
-                    <p style={{ marginLeft: "5px" }}>{selected?.value} </p>
-                      <ChevronDownIcon className="w-5 h-5 ml-2 -mr-1 text-violet-200 hover:text-violet-100" aria-hidden="true" />
-              </Menu.Button>
-            </div>
-        <Transition
-        
-          enter="transition ease-out duration-100"
-          enterFrom="transform opacity-0 scale-95"
-          enterTo="transform opacity-100 scale-100"
-          leave="transition ease-in duration-75"
-          leaveFrom="transform opacity-100 scale-100"
-          leaveTo="transform opacity-0 scale-95"
-        >
-        <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-            <Menu.Item>
-            <Button key={selected?.key} icon={selected?.icon} style={{ ...styles.button, ...styles.item }}>
-              <span style={{ marginLeft: "5px" }}>{selected?.value}</span>
-            </Button>
-            </Menu.Item>
-          </Menu.Items>
-        </Transition> 
-      </Menu> 
-  </div>
-
-</>
+    
+    <div className="w-72 fixed top-16">
+      <Listbox value={selectedNetwork} onChange={setSelectedNetwork}>
+        <div className="relativ mt-1">
+          <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm">
+            <span className="block truncate">{selectedNetwork.value}</span>
+            <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+              <SelectorIcon
+                className="w-5 h-5 text-gray-400"
+                aria-hidden="true"
+              />
+            </span>
+          </Listbox.Button>
+          <Transition
+            as={Fragment}
+            leave="transition ease-in duration-100"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+          <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+            {networks.map((item) => (
+              <Listbox.Option
+                onClick={handleMenuClick}
+                key={item.key}
+                value={item.value}
+                icon={item.icon}
+                className={({ active }) =>
+                    `${active ? 'text-amber-900 bg-amber-100' : 'text-gray-900'}
+                          cursor-default select-none relative py-2 pl-10 pr-4`
+                }
+                >
+              {({ selectedNetwork, active }) => (
+                    <>
+                      <span
+                        className={`${
+                          selectedNetwork ? 'font-medium' : 'font-normal'
+                        } block truncate`}
+                      >
+                        {item.value}
+                      </span>
+                      {selectedNetwork ? (
+                        <span
+                          className={`${
+                            active ? 'text-amber-600' : 'text-amber-600'
+                          }
+                                absolute inset-y-0 left-0 flex items-center pl-3`}
+                        >
+                          <CheckIcon className="w-5 h-5" aria-hidden="true" />
+                        </span>
+                      ) : null}
+                    </>
+                  )}
+                </Listbox.Option>
+              ))}
+            </Listbox.Options>
+          </Transition>
+        </div>
+      </Listbox>
+    </div>    
   );
 }
+
 
