@@ -1,30 +1,15 @@
+import { Fragment, useState } from 'react';
 import { useMoralis } from "react-moralis";
+
+import { Button } from "antd";
+
+import { Menu, Transition } from '@headlessui/react';
+
 import { getEllipsisTxt } from "../helpers/formatters";
-import { SelectOutlined } from "@ant-design/icons";
-import { Button, Card, Modal } from "antd";
-import Address from "../components/Address/Address";
-import { Fragment } from 'react';
-import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { useState } from "react";
-import Blockie from "../components/Blockie";
 import { getExplorer } from "../helpers/networks";
 
-const styles = {
-  account: {
-    height: "42px",
-    padding: "0 15px",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "fit-content",
-    borderRadius: "12px",
-    backgroundColor: "rgb(244, 244, 244)",
-    cursor: "pointer",
-  },
-  text: {
-    color: "#21BF96",
-  },
-};
+import Blockie from "../components/Blockie";
+import Address from "../components/Address/Address";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -32,17 +17,17 @@ function classNames(...classes) {
 
 export default function Account() {
   const { authenticate, isAuthenticated, isAuthentificating, logout, account, chainId  } = useMoralis();
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState();
 
   return (
     <>
         <div>
-          <Menu as="div" className="ml-3 relative">
+          <Menu as="div" className="ml-3">
             <div>
-              <Menu.Button onClick={() => setIsModalVisible(true)} className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+              <Menu.Button onClick={() => setIsModalVisible(true)} className="relative w-full py-2 pl-3 pr-10 text-left bg-gray-800 flex bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm">
                 <span className="sr-only">Open user menu</span>
                   <Blockie className="h-8 w-8 rounded-full" currentWallet scale={3} /> 
-                    <p style={{ marginRight: "1px", ...styles.text }}>{getEllipsisTxt(account, 6)}</p>
+                    <p className="ml-3 p-0.5">{getEllipsisTxt(account, 6)}</p>
               </Menu.Button>
             </div>
         <Transition
@@ -61,7 +46,8 @@ export default function Account() {
                   href={`${getExplorer(chainId)}/address/${account}`} target="_blank" rel="noreferrer"
                   className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                 >
-                  <SelectOutlined style={{ marginRight: "5px" }} />View on Explorer</a>                            
+                  View on Explorer
+                </a>                            
               )}
             </Menu.Item>
                 <Menu.Item>
