@@ -1,6 +1,9 @@
 import React from 'react'
+
 import { MoralisProvider } from "react-moralis";
 import { ChakraProvider } from '@chakra-ui/react';
+
+import Layout from "../src/components/Layout";
 
 import '../styles/globals.css';
 
@@ -11,9 +14,11 @@ const serverUrl = "https://zz6umijjwcmt.usemoralis.com:2053/server";
 function MyApp({ Component, pageProps }) {
     return (
       <MoralisProvider appId={appId} serverUrl={serverUrl}>
-        <ChakraProvider>
-          <Component {...pageProps} />
-        </ChakraProvider>
+        <Layout>
+          <ChakraProvider>
+            <Component {...pageProps} />
+          </ChakraProvider>
+        </Layout>
       </MoralisProvider>
     );
   }

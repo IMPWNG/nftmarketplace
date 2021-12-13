@@ -3,8 +3,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Web3Modal from "web3modal";
 
-import Layout from "../src/components/Layout";
-
 import { nftaddress, nftmarketaddress } from '../config';
 
 import NFT from '../artifacts/contracts/NFT.sol/NFT.json';
@@ -46,7 +44,6 @@ async function loadNfts() {
   }
   if (loadingState === 'loaded' && !nfts.length) return (<h1 className="py-10 px-20 text-3xl">No NFTs owned</h1>)
   return (
-      <Layout>
       <div className="flex justify-center">
           <div className="p-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
@@ -65,6 +62,5 @@ async function loadNfts() {
               </div>
           </div>
       </div>
-      </Layout>
   )
 }
