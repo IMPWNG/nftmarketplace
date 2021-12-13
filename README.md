@@ -17,3 +17,7 @@ change DNs to IPv6 to match with my node version
 
 - For localhost test delete metamask logs
 - Moralis installation 
+
+## 13/12
+
+- Focus on components (Layout/header/index) + add login page with web3 + finish networks selector

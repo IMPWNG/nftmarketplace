@@ -1,9 +1,6 @@
-import { useState } from "react";
 import { useMoralis } from "react-moralis";
-import { Button } from '@chakra-ui/react';
 import { Container, Heading } from '@chakra-ui/layout';
 
-import Chains from "../src/components/Chains/Chains";
 import { Auth } from "./Auth";
   
 export default function Home() {
