@@ -12,12 +12,10 @@ export default function Home() {
 
   if (isAuthenticated) {
     return (
-      <Container>
-        <Heading className="flex justify-center text-blue-700 lg:text-3xl border-blue-600 border-b-2	text-bold">
-          Welcome to your NFT Marketplace
-        </Heading>
+      <div>
+        <Heading className="flex justify-center text-blue-700 lg:text-3xl border-blue-600 border-b-2	text-bold" />
         <Layout />
-      </Container>
+      </div>
 
     ); 
   };
