@@ -1,24 +1,26 @@
 import React from 'react'
-
 import { MoralisProvider } from "react-moralis";
 import { ChakraProvider } from '@chakra-ui/react';
+import { useRouter } from 'next/dist/client/router';
 
 import Layout from "../src/components/Layout";
+import { Auth }  from '../src/components/Auth';
 
 import '../styles/globals.css';
 
-// Change to use .env
-const appId = "L8kuo2v3DlsVmjGfmKNYWZq3W0ZQQSdADNav4hum";
-const serverUrl = "https://zz6umijjwcmt.usemoralis.com:2053/server";
-
 function MyApp({ Component, pageProps }) {
-    return (
-      <MoralisProvider appId={appId} serverUrl={serverUrl}>
-        <Layout>
+  const router = useRouter();
+  const showLayout = router.pathname === '/' ? false : true ;
+    
+  return (
+      <MoralisProvider 
+        appId={process.env.NEXT_PUBLIC_MORALIS_NFTMARKETPLACE_APP_ID}
+        serverUrl={process.env.NEXT_PUBLIC_MORALIS_NFTMARKETPLACE_SERVER_URL}
+      >
           <ChakraProvider>
+            {showLayout && <Layout />}
             <Component {...pageProps} />
           </ChakraProvider>
-        </Layout>
       </MoralisProvider>
     );
   }
