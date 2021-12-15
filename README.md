@@ -21,3 +21,7 @@ change DNs to IPv6 to match with my node version
 ## 13/12
 
 - Focus on components (Layout/header/index) + add login page with web3 + finish networks selector
+
+## 15/12
+
+- Path for log session, don't show layout on Auth page + build index page with  address info
