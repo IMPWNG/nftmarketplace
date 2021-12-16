@@ -1,3 +1,4 @@
+
 export const networkConfigs = {
   "0x1": {
     currencySymbol: "ETH",

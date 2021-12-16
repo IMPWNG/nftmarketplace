@@ -1,12 +1,13 @@
 import React from 'react'
 import { MoralisProvider } from "react-moralis";
 import { ChakraProvider } from '@chakra-ui/react';
+
 import { useRouter } from 'next/dist/client/router';
 
-import Layout from "../src/components/Layout";
-import { Auth }  from '../src/components/Auth';
+import Layout from '../components/sections/layout';
 
 import '../styles/globals.css';
+
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();

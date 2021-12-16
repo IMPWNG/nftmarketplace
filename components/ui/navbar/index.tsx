@@ -1,10 +1,9 @@
-import { useMoralis } from "react-moralis";
 import { Disclosure } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 
-import Notification from "../components/Notification";
-import Account from "../components/Account";
-import Chains from "../components/Chains/Chains";
+import Notification from "../notification";
+import AccountButton from "../accountButton";
+
   
 const navigation = [
   { name: 'Home', href: '/', current: true },
@@ -18,8 +17,8 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Navbar() {
-  const { authenticate, isAuthenticated, isAuthentificating, logout } = useMoralis();
+export const Navbar = () => {
+
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -68,8 +67,7 @@ export default function Navbar() {
                 </div>
               </div>
               <Notification />
-              <Chains />
-              <Account />
+              <AccountButton />
             </div>
           </div>
           <Disclosure.Panel className="sm:hidden">

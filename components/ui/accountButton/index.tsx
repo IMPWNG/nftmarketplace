@@ -5,19 +5,18 @@ import { Button } from "antd";
 
 import { Menu, Transition } from '@headlessui/react';
 
-import { getEllipsisTxt } from "../helpers/formatters";
-import { getExplorer } from "../helpers/networks";
+import { getEllipsisTxt } from "../../../helpers/formatters";
+import { getExplorer } from "../../../helpers/networks";
 
-import Blockie from "../components/Blockie";
-import Address from "../components/Address/Address";
+import Blockie from "../blockie";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Account() {
-  const { authenticate, isAuthenticated, isAuthentificating, logout, account, chainId  } = useMoralis();
-  const [isModalVisible, setIsModalVisible] = useState();
+export default function AccountButton() {
+  const { isAuthentificating, logout, account, chainId  } = useMoralis();
+  const [setIsModalVisible] = useState();
 
   return (
     <>
@@ -52,7 +51,7 @@ export default function Account() {
             </Menu.Item>
                 <Menu.Item>
                     {({ active }) => (
-                        <Button isLoading={isAuthentificating} onClick={logout}
+                        <Button isloading={isAuthentificating} onClick={logout}
                           href="#"
                           className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-red-500')}
                         >Sing out</Button>
@@ -65,11 +64,3 @@ export default function Account() {
   </>
 );
 }  
-
-
-
-
-
-
-                  
-                                      
