@@ -2,7 +2,7 @@ import { useEffect, useState, Fragment } from "react";
 
 import { useChain } from "react-moralis";
 
-import { CheckIcon, SelectorIcon } from '@heroicons/react/solid';
+import { SelectorIcon } from '@heroicons/react/solid';
 import { Listbox, Transition } from '@headlessui/react'
 
 import { AvaxLogo, PolygonLogo, BSCLogo, ETHLogo } from "./Logo";
@@ -66,14 +66,14 @@ const networkItem = [
 ];
 export default function Chains() {
   const { switchNetwork, chainId, chain } = useChain();
-  const [selectedNetwork, setSelectedNetwork] = useState(networkItem[0]);
+  const [selected, setSelected] = useState(networkItem[0]);
 
   console.log("chain", chain)
 
   useEffect(() => {
     if (!chainId) return null;
-    const newSelected = networkItem.find((network) => network.key === chainId);
-    setSelectedNetwork(newSelected);
+    const newSelected = networkItem.find((item) => item.key === chainId);
+    setSelected(newSelected);
     console.log("current chainId: ", chainId);
   }, [chainId]);
 
@@ -84,13 +84,12 @@ export default function Chains() {
 
   return (
       <div className="ml-10">
-        <Listbox value={selectedNetwork} onChange={setSelectedNetwork}>
+        <Listbox value={selected} onChange={handleMenuClick}>
         {({ open }) => (
-          <div className="relativ mt-1">
+          <div className="relative mt-1">
             <span className="inline-block w-full">
               <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm">
-                <span className="sr-only">Open network menu</span>
-                <span className="block truncate">{selectedNetwork?.value}</span>
+                <span className="">{selected?.value}</span>
                 <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                   <SelectorIcon
                     className="w-5 h-5 text-gray-400"
@@ -107,33 +106,32 @@ export default function Chains() {
                 leaveTo="opacity-0"
               >
                 <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                  {networkItem.map((network, networkIdx, networkIcon) => (
+                  {networkItem.map((network) => (
                     <Listbox.Option
-                      key={networkIdx}
-                      icon={networkIcon}
+                      key={network.key}
+                      
                       className={({ active }) =>
                         `${active ? 'text-amber-900 bg-amber-100' : 'text-gray-900'}
                             cursor-default select-none relative py-2 pl-10 pr-4`
                       }
                       value={network}
                     >
-                      {({ selectedNetwork, active }) => (
+                      {({ selected, active }) => (
                         <>
                           <span
                             className={`${
-                              selectedNetwork ? "font-medium" : "font-normal"
+                              selected ? "font-medium" : "font-normal"
                             } block truncate`}
                           >
                             {network.value}
                           </span>
-                            {selectedNetwork ? (
+                            {selected ? (
                               <span
                                 className={`${
                                   active ? 'text-amber-600' : 'text-amber-600'
                                 }
                                     absolute inset-y-0 left-0 flex items-center pl-3`}
                               >
-                                <CheckIcon className="w-5 h-5" aria-hidden="true" />
                               </span>
                             ) : null}
                         </>

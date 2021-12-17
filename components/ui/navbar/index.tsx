@@ -3,7 +3,7 @@ import { MenuIcon, XIcon } from '@heroicons/react/outline';
 
 import Notification from "../notification";
 import AccountButton from "../accountButton";
-
+import Chains from "../chains";
   
 const navigation = [
   { name: 'Home', href: '/', current: true },
@@ -67,6 +67,7 @@ export const Navbar = () => {
                 </div>
               </div>
               <Notification />
+              <Chains />
               <AccountButton />
             </div>
           </div>
