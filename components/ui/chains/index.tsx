@@ -89,6 +89,7 @@ export default function Chains() {
           <div className="relative mt-1">
             <span className="inline-block w-full">
               <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm">
+                <span className="absolute inset-y-0 flex left-0 pl-2 items-center pointer-events-none">{selected?.icon}</span>
                 <span className="">{selected?.value}</span>
                 <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                   <SelectorIcon
@@ -124,6 +125,13 @@ export default function Chains() {
                             } block truncate`}
                           >
                             {network.value}
+                          </span>
+                          <span
+                            className={`${
+                              selected ? "font-medium" : "font-normal"
+                            } block truncate`}
+                          >
+                            {network.icon}
                           </span>
                             {selected ? (
                               <span
