@@ -8,6 +8,7 @@ const styles = {
     fontWeight: "700",
   },
 };
+
 function ERC20Balance(props) {
   const { data: assets } = useERC20Balances(props);
   const { Moralis } = useMoralis();
