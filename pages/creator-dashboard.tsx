@@ -50,6 +50,7 @@ export default function CreatorDashboard() {
     }
     if (loadingState === 'loaded' && !nfts.length) return (<h1 className="py-10 px-20 text-3xl">No assets created</h1>)
     return (
+
         <div>
           <div className="p-4">
               <h2 className="text-2xl py-2">Items Created</h2>
@@ -90,5 +91,6 @@ export default function CreatorDashboard() {
               }
           </div>
       </div>
+
     )
 }
